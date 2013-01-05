@@ -19,7 +19,7 @@ from django.views.generic.edit import BaseFormView, FormMixin
 from auth.decorators import login_required
 from seaserv import ccnet_rpc, ccnet_threaded_rpc, seafserv_threaded_rpc, \
     get_repo, get_group_repos, check_group_staff, get_commits, is_group_user, \
-    get_personal_groups_by_user, get_group, get_group_members, \
+    get_personal_groups_by_user, get_group, get_group_members, remove_group, \
     get_personal_groups, create_org_repo, get_org_group_repos, \
     get_org_groups_by_user, check_permission
 from pysearpc import SearpcError
@@ -112,7 +112,7 @@ def group_remove(request, group_id):
         return HttpResponseRedirect(next)
 
     try:
-        ccnet_threaded_rpc.remove_group(group_id_int, request.user.username)
+        remove_group(group_id_int, request.user.username)
         seafserv_threaded_rpc.remove_repo_group(group_id_int, None)
     except SearpcError, e:
         return render_error(request, e.msg)
@@ -139,7 +139,7 @@ def group_dismiss(request, group_id):
         return render_permission_error(request, _(u'Only administrators can dismiss the group'))
 
     try:
-        ccnet_threaded_rpc.remove_group(group_id_int, user)
+        remove_group(group_id_int, user)
         seafserv_threaded_rpc.remove_repo_group(group_id_int, None)
 
         if request.user.org:

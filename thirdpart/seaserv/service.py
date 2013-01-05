@@ -109,6 +109,12 @@ def get_group(group_id):
         group = None
     return group
 
+def remove_group(group_id, user):
+    try:
+        ccnet_threaded_rpc.remove_group(group_id, user)
+    except SearpcError:
+        pass
+
 def get_personal_groups(start, limit):
     try:
         groups_all = ccnet_threaded_rpc.get_all_groups(start, limit)
