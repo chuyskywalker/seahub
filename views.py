@@ -793,9 +793,9 @@ def repo_history_revert(request, repo_id):
         if e.msg == 'Bad arguments':
             return render_error(request, _(u'Invalid arguments'))
         elif e.msg == 'No such repo':
-            return render_error(request, _(u'Library not exists'))
+            return render_error(request, _(u'The library does not exist.'))
         elif e.msg == "Commit doesn't exist":
-            return render_error(request, _(u'History you specified is not exists'))
+            return render_error(request, _(u'This version does not exist.'))
         else:
             return render_error(request, _(u'Unknown error'))
 
@@ -888,7 +888,7 @@ def modify_token(request, repo_id):
 def repo_remove(request, repo_id):
     repo = get_repo(repo_id)
     if not repo:
-        return render_error(request, _(u'Library not exists'))
+        return render_error(request, _(u'The library does not exist.'))
         
     user = request.user.username
     org, base_template = check_and_get_org_by_repo(repo_id, user)
@@ -908,7 +908,7 @@ def repo_remove(request, repo_id):
                               repo_name=repo.name,
                           )
         else:
-            err_msg = _(u'Failed to remove library. Only staff or owner can perform this operation.')
+            err_msg = _(u'Failed to remove the library. Only staff or its owner can perform this operation.')
             return render_permission_error(request, err_msg)
     else:
         # Remove repo in personal context, only repo owner or site staff can
@@ -924,7 +924,7 @@ def repo_remove(request, repo_id):
                               repo_name=repo.name,
                           )
         else:
-            err_msg = _(u'Failed to remove library. Only staff or owner can perform this operation.')
+            err_msg = _(u'Failed to remove library. Only staff or its owner can perform this operation.')
             return render_permission_error(request, err_msg)
 
     next = request.META.get('HTTP_REFERER', None)
@@ -1216,7 +1216,7 @@ def public_repo_create(request):
 def unset_inner_pub_repo(request, repo_id):
     try:
         seafserv_threaded_rpc.unset_inner_pub_repo(repo_id)
-        messages.success(request, _('Operation successful'))
+        messages.success(request, _('Operation succeeded'))
     except SearpcError:
         messages.error(request, _('Operation failed'))
 
@@ -1302,7 +1302,7 @@ def repo_view_file(request, repo_id):
             obj_id = None
 
     if not obj_id:
-        return render_error(request, _(u'File not exists'))
+        return render_error(request, _(u'The file does not exist.'))
 
     if repo.encrypted and not is_passwd_set(repo_id, request.user.username):
         # Redirect uesr to decrypt repo page.

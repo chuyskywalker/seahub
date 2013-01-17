@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-12 16:25+0800\n"
+"POT-Creation-Date: 2013-01-17 11:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,7 +176,7 @@ msgstr "上传的文件名包含非法字符"
 msgid "Duplicated filename"
 msgstr "已存在同名的文件"
 
-#: views.py:574 views.py:1305 views.py:2539 views.py:2667
+#: views.py:574 views.py:2539 views.py:2667
 msgid "File not exists"
 msgstr "文件不存在"
 
@@ -216,21 +216,27 @@ msgstr "请指定历史记录ID"
 msgid "Invalid arguments"
 msgstr "非法参数"
 
-#: views.py:796 views.py:891 views.py:2368 views.py:2896
-msgid "Library not exists"
+#: views.py:796 views.py:891 views.py:1565
+msgid "The library does not exist."
 msgstr "资料库不存在"
 
 #: views.py:798
-msgid "History you specified is not exists"
-msgstr "指定的历史记录不存在"
+msgid "This version does not exist."
+msgstr "该版本不存在。"
 
 #: views.py:800
 msgid "Unknown error"
 msgstr "未知错误"
 
-#: views.py:911 views.py:927
+#: views.py:911
 msgid ""
-"Failed to remove library. Only staff or owner can perform this operation."
+"Failed to remove the library. Only staff or its owner can perform this "
+"operation."
+msgstr "删除资料库失败, 只有团体管理员或资料库创建者有权删除资料库。"
+
+#: views.py:927
+msgid ""
+"Failed to remove library. Only staff or its owner can perform this operation."
 msgstr "删除资料库失败, 只有团体管理员或资料库创建者有权删除资料库。"
 
 #: views.py:1201
@@ -238,7 +244,7 @@ msgid "Failed to create repo"
 msgstr "创建失败"
 
 #: views.py:1219
-msgid "Operation successful"
+msgid "Operation succeeded"
 msgstr "操作成功"
 
 #: views.py:1221
@@ -258,6 +264,10 @@ msgstr "%s 删除成功。"
 #, python-format
 msgid "Internal error. Failed to delete %s."
 msgstr "内部错误。删除 %s 失败。"
+
+#: views.py:1305 views.py:1637
+msgid "The file does not exist."
+msgstr "该文件不存在"
 
 #: views.py:1321 views.py:1643
 msgid "Unable to view file"
@@ -287,10 +297,6 @@ msgstr "内部错误"
 msgid "Permission denied"
 msgstr "共享权限"
 
-#: views.py:1565
-msgid "The library does not exist."
-msgstr "资料库不存在"
-
 #: views.py:1569
 msgid "The library is encrypted."
 msgstr "该资料库已加密"
@@ -298,10 +304,6 @@ msgstr "该资料库已加密"
 #: views.py:1622
 msgid "Unable to edit file"
 msgstr "无法编辑该文件"
-
-#: views.py:1637
-msgid "The file does not exist."
-msgstr "该文件不存在"
 
 #: views.py:1663
 msgid "Edit online is not offered for this type of file."
@@ -432,6 +434,10 @@ msgstr "%(old)s 已重命名为 %(new)s"
 #: views.py:2342
 msgid "Failed to create library"
 msgstr "创建资料库失败"
+
+#: views.py:2368 views.py:2896
+msgid "Library not exists"
+msgstr "资料库不存在"
 
 #: views.py:2435
 #, python-format
@@ -705,9 +711,9 @@ msgid "Password should be 3 to 15 characters."
 msgstr "密码太长（不超过15个字符）"
 
 #: templates/file_edit.html:291 templates/file_view.html:198
-#: templates/file_view.html.py:363 templates/repo.html:411
+#: templates/file_view.html.py:364 templates/repo.html:411
 #: templates/repo.html.py:649 templates/repo.html:686
-#: templates/repo.html.py:825 templates/snippets/events_js.html:91
+#: templates/repo.html.py:829 templates/snippets/events_js.html:91
 #: templates/snippets/file_content_js.html:97
 #: templates/snippets/shared_link_js.html:41
 #: templates/snippets/shared_link_js.html:60
@@ -841,6 +847,10 @@ msgstr "打开本地文件"
 msgid "Raw"
 msgstr "原始文件"
 
+#: templates/file_view.html:90
+msgid "Send Link"
+msgstr "发送链接"
+
 #: templates/file_view.html:91 templates/repo.html:337
 msgid "Send to:"
 msgstr "发送到："
@@ -916,7 +926,7 @@ msgstr ""
 msgid "Comment"
 msgstr "评论"
 
-#: templates/file_view.html:343
+#: templates/file_view.html:344
 msgid "Please input a message."
 msgstr "请先输入评论。"
 
@@ -1361,9 +1371,13 @@ msgstr "移动"
 msgid "to:"
 msgstr "到："
 
-#: templates/repo.html:783 templates/repo.html.py:791 templates/repo.html:799
+#: templates/repo.html:783 templates/repo.html.py:795 templates/repo.html:803
 msgid "It can't be blank."
 msgstr "输入不能为空。"
+
+#: templates/repo.html:787
+msgid "Only an extension there, please input a name."
+msgstr "请输入完整的文件名。"
 
 #: templates/repo_history.html:7
 msgid "modification history"
@@ -1891,11 +1905,12 @@ msgid "This type of file cannot be viewed online."
 msgstr "该类型文件无法在线查看。"
 
 #: templates/snippets/file_upload_progress_js.html:51
-#: templates/snippets/file_upload_progress_js.html:76
+#: templates/snippets/file_upload_progress_js.html:75
 msgid "Please choose a file at first."
 msgstr "请先选择一个文件。"
 
 #: templates/snippets/file_upload_progress_js.html:62
+#: templates/snippets/file_upload_progress_js.html:85
 msgid "File size surpasses the limit."
 msgstr "文件大小超过限制, 无法上传。"
 
@@ -2088,6 +2103,9 @@ msgstr "名字(可选)"
 #: templates/snippets/user_profile_html.html:32
 msgid "Note(optional)"
 msgstr "备注(可选)"
+
+#~ msgid "History you specified is not exists"
+#~ msgstr "指定的历史记录不存在"
 
 #~ msgid "Failed.Please check the network."
 #~ msgstr "操作失败。请检查网络是否已连接。"
