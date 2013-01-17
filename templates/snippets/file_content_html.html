@@ -17,6 +17,10 @@ For details please refer to 'snippets/file_content_js.html'.
         {% if filetype == 'Image' %}
         <img src="{{ raw_path }}" alt="{{ u_filename}}" id="image-view" />
         {% endif %}
+
+        {% if filetype == 'Video' %}
+            <embed src="{{ raw_path }}" id="video-view" />
+        {% endif %}
     {% else %}
     <div id="file-view-tip">
         <p class="error">{{ err }}</p>

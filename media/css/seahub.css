@@ -1458,6 +1458,12 @@ textarea:-moz-placeholder {/* for FF */
     background:#fff;
     border:1px solid #eee;
 }
+#video-view {
+    display:block;
+    width:950px;
+    height:500px;
+    margin:0 auto;
+}
 #docu-view,
 #svg-view,
 #pdf,
