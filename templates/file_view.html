@@ -62,6 +62,13 @@
                 {% endfor %}
             </div>
 
+            {% if img_pre %}
+            <a href="{% url 'repo_view_file' repo.id %}?p={{img_pre|urlencode}}">{% trans "previous" %}</a>
+            {% endif %}
+            {% if img_next %}
+            <a href="{% url 'repo_view_file' repo.id %}?p={{img_next|urlencode}}">{% trans "next" %}</a>
+            {% endif %}
+
             {% if user_perm == 'rw' %}
             <button data-url="{% url 'file_revisions' repo.id %}?p={{ path }}" class="history">{% trans "History"%}</button>
             {% endif %}

@@ -1338,6 +1338,30 @@ def repo_view_file(request, repo_id):
     err = ''
     file_content = ''
     swf_exists = False
+    img_pre = None
+    img_next = None
+    if filetype == 'Image' and not view_history:
+        parent_dir = os.path.dirname(path)
+        try:
+            dirs = seafserv_threaded_rpc.list_dir_by_path(current_commit.id, parent_dir.encode('utf-8'))
+        except SearpcError, e:
+            raise Http404
+
+        img_list = []
+        for dirent in dirs:
+            if not stat.S_ISDIR(dirent.props.mode):
+                fltype, flext = valid_previewed_file(dirent.obj_name)
+                if fltype == 'Image':
+                    img_list.append(dirent.obj_name)
+
+        if len(img_list) > 1:
+            img_list.sort(lambda x, y : cmp(x.lower(), y.lower()))
+            cur_img_index = img_list.index(filename) 
+            if cur_img_index != 0:
+                img_pre = os.path.join(parent_dir, img_list[cur_img_index - 1])
+            if cur_img_index != len(img_list) - 1:
+                img_next = os.path.join(parent_dir, img_list[cur_img_index + 1])
+
     if filetype == 'Text' or filetype == 'Markdown' or filetype == 'Sf':
         err, file_content, encoding = repo_file_get(raw_path)
     elif filetype == 'Document':
@@ -1464,6 +1488,8 @@ def repo_view_file(request, repo_id):
             'repo_group_str': repogrp_str,
             'is_starred': is_starred,
             'user_perm': user_perm,
+            'img_pre': img_pre,
+            'img_next': img_next,
             }, context_instance=RequestContext(request))
 
 def file_comment(request):
