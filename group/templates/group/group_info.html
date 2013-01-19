@@ -69,8 +69,15 @@
 {% endblock %}
 
 {% block right_panel %}
-<h3>{% trans "Libraries" %}</h3>
-<button id="repo-create">{% trans "New Library" %}</button>
+<div id="tabs">
+    <div class="ovhd">
+        <ul class="fleft" id="tabs-nav">
+            <li><a href="#grp-repos">{% trans "Libraries" %}</a></li>
+            <li><a href="#grp-repos-commits">{% trans "Recent Changes" %}</a></li>
+        </ul>
+        <button id="repo-create" class="fright">{% trans "New Library" %}</button>
+    </div>
+    <div id="grp-repos">
 {% if repos %}
 <table>
     <tr>
@@ -111,6 +118,41 @@
     {% endfor %}
 </table>
 {% endif %}
+</div>
+
+<div id="grp-repos-commits">
+{% if repos %}
+<table>
+    <tr>
+        <th width="4%"><!--icon--></th>
+        <th width="35%">{% trans "Library" %}</th>
+        <th width="16%">{% trans "Last Update" %}</th>
+        <th width="45%">{% trans "Description" %}</th>
+    </tr>
+    {% for repo in repos %}
+    <tr>
+        <td>
+            {% if repo.user_perm == 'rw' %}
+            <img src="{{MEDIA_URL}}img/sync-folder-20.png" title="{% trans "Read-Write" %}" alt="{% trans "directory icon" %}" />
+            {% else %}
+            <img src="{{MEDIA_URL}}img/folder-no-write-20.png" alt="{% trans "directory icon" %}" />
+            {% endif %}
+        </td>
+        <td><a href="{{ SITE_ROOT }}repo/{{ repo.props.id }}/">{{ repo.props.name }}</a></td>
+        <td>
+            {% if repo.latest_modify %}
+            {{ repo.latest_modify|translate_seahub_time }}
+            {% else %}
+            —— ——
+            {% endif %}
+        </td>
+        <td></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+</div>
+</div>
 
 <div id="group-reply">
     <h3>{% trans "Messages" %}</h3>

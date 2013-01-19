@@ -1,12 +1,12 @@
 {% load seahub_tags i18n %}
 {% load url from future %}
 <h3>{% trans "Libraries" %}</h3>
-<div id="repos-tabs">
+<div id="tabs">
 <div class="ovhd">
-    <ul class="fleft">
-        <li><a href="#my-own-repos" onfocus="this.blur()">{% trans "Mine" %}</a></li>
-        <li><a href="#repos-shared-to-me" onfocus="this.blur()">{% trans "Shared" %}</a></li>
-        <li><a href="#starred-files" onfocus="this.blur()">{% trans "Starred" %}</a></li>
+    <ul class="fleft" id="tabs-nav">
+        <li><a href="#my-own-repos">{% trans "Mine" %}</a></li>
+        <li><a href="#repos-shared-to-me">{% trans "Shared" %}</a></li>
+        <li><a href="#starred-files">{% trans "Starred" %}</a></li>
     </ul>
     <button id="repo-create" class="fright">{% trans "New Library" %}</button>
 </div>
